@@ -1,8 +1,11 @@
 import {useState} from 'react';
 import './App.css';
+import { TTodo } from './model/TodoProps';
+import { ToggleRemoveType } from './model/ToggleRemoveType';
+import TodoList from './components/TodoList';
+import InputField from './components/InputField';
 
-function App() {
-  type TTodo = {id: string, txt: string, complited: boolean};
+function App(): JSX.Element {
   const [todos, setTodos] = useState<TTodo[]>([]);
   const [txt, setTxt] = useState('');
 
@@ -19,13 +22,11 @@ function App() {
     }
   };
 
-  const removeToDo = (IdTodo: string) => {
+  const removeToDo: ToggleRemoveType = (IdTodo)  => {
     setTodos(todos.filter(todo => todo.id !== IdTodo));
-
   }
-
-  const toggleTodoComplete = (IdTodo: string) => {
-   
+ 
+    const toggleTodoComplete: ToggleRemoveType = (IdTodo) => {
     setTodos(todos.map(todo => {
       if(todo.id !== IdTodo) return todo;
       return {
@@ -37,30 +38,18 @@ function App() {
     )
   }
 
-    
-
-
-  return (
-    <div className="App">
-      <label>
-        <input value={txt} onChange={e => setTxt(e.target.value)}/>
-        <button onClick={addToDo}>Add ToDo</button>
-      </label>
-      <ul>
-        { todos.length > 0 &&
-          todos.map(todo => <li key={todo.id}>
-            <input 
-                type={'checkbox'} checked={todo.complited} 
-                onChange={() => toggleTodoComplete(todo.id)}/>
-            <span>{todo.txt}</span>
-            <span className='delete' onClick={() => removeToDo(todo.id)}>&times;</span>
-
-          </li>)
-        }
-      </ul>
-      
-    </div>
-  );
+  return <div className='App'>
+      <InputField 
+          txt={txt}
+          setTxt={setTxt}
+          addToDo={addToDo}
+          />
+      <TodoList      
+          todos = {todos}
+          toggleTodoComplete={toggleTodoComplete}
+          removeToDo={removeToDo}
+      />
+    </div> 
 }
 
 export default App;
