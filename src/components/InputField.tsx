@@ -5,13 +5,15 @@ type Props = {
     setTxt: (s: string) => void;
     addToDo: () => void;
 }
+type Foo = {
+    (p: Props): JSX.Element;
+}
 
-// const InputField = (txt: string, setTxt: void, addToDo: void) => {
-function InputField(i: Props): JSX.Element {
+const InputField: Foo = ({txt, setTxt, addToDo}) => {
   return (
     <label>
-    <input value={i.txt} onChange={e => i.setTxt(e.target.value)}/>
-    <button onClick={i.addToDo}>Add ToDo</button>
+    <input value={txt} onChange={e => setTxt(e.target.value)}/>
+    <button onClick={addToDo}>Add ToDo</button>
   </label>
   )
 }

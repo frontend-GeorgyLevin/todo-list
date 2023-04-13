@@ -8,14 +8,18 @@ type Props = {
     removeToDo: ToggleRemoveType;
 }
 
-function TodoItem(i: Props): JSX.Element {
+type Foo = {
+    (p: Props): JSX.Element;
+}
+
+const TodoItem: Foo = ({todo, toggleTodoComplete,removeToDo}) => {
   return (
     <li>
         <input 
-            type={'checkbox'} checked={i.todo.complited} 
-            onChange={() => i.toggleTodoComplete(i.todo.id)}/>
-        <span>{i.todo.txt}</span>
-        <span className='delete' onClick={() => i.removeToDo(i.todo.id)}>&times;</span>
+            type={'checkbox'} checked={todo.complited} 
+            onChange={() => toggleTodoComplete(todo.id)}/>
+        <span>{todo.txt}</span>
+        <span className='delete' onClick={() => removeToDo(todo.id)}>&times;</span>
         
     </li>
   )

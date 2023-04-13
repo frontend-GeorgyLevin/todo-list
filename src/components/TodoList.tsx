@@ -8,14 +8,19 @@ type Props = {
     removeToDo: ToggleRemoveType;
 }
 
-function TodoList(i: Props): JSX.Element { 
+type Foo = {
+    (p: Props): JSX.Element;
+}
+
+const TodoList: Foo = ({todos, toggleTodoComplete,removeToDo}) => {  
+
   return (
     <ul>
-        {i.todos.map(todo => (
+        {todos.map(todo => (
             <TodoItem 
                 key={todo.id} 
-                toggleTodoComplete={i.toggleTodoComplete}
-                removeToDo={i.removeToDo}
+                toggleTodoComplete={toggleTodoComplete}
+                removeToDo={removeToDo}
                 todo={todo}/>)
           )
         }
