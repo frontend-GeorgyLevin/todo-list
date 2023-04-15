@@ -1,5 +1,4 @@
 import React from 'react'
-import { TTodo } from '../model/TodoProps'
 type Props = {
     txt: string;
     setTxt: (s: string) => void;
